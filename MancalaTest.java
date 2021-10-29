@@ -9,6 +9,6 @@
 public class MancalaTest {
     public static void main(String[] args) {
         Mancala model = new Mancala();
-        System.out.println("hello world");
+        
     }
 }
