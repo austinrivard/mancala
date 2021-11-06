@@ -1,5 +1,7 @@
 package gui;
 
-public class MancalaLabel {
+import javax.swing.*;
+
+public class MancalaLabel extends JLabel {
     
 }

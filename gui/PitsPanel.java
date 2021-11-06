@@ -1,5 +1,7 @@
 package gui;
 
-public class PitsPanel {
+import javax.swing.*;
+
+public class PitsPanel extends JPanel {
     
 }

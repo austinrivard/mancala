@@ -1,5 +1,7 @@
 package gui;
 
-public class PitButton {
+import javax.swing.*;
+
+public class PitButton extends JButton {
     
 }
