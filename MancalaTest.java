@@ -8,7 +8,7 @@
 
 public class MancalaTest {
     public static void main(String[] args) {
-        Mancala model = new Mancala();
+        Mancala model = new Mancala(4);
         
     }
 }
