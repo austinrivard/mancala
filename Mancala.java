@@ -5,12 +5,13 @@ import java.util.*;
  */
 
 public class Mancala {
-    private boolean playerTurn;
+    private boolean playerTurn = true;
+    private int numberOfUndos = 0;
     private ArrayList<Pit> pitList = new ArrayList<Pit>(14);
     public Mancala(int numberOfStones) {
         for (Pit p: pitList) {
             if (pitList.indexOf(p)== 6 || pitList.indexOf(p)== 13) {
-                p = new MancalaPit(numberOfStones);
+                p = new MancalaPit(0);
             }
             else {p = new Pit(numberOfStones);}
             
@@ -22,9 +23,19 @@ public class Mancala {
         int currentIndex = index;
         
         for (int i = moves; i > 0; i--) {
-            pitList.get(currentIndex).addStones(1);
+
+            pitList.get(currentIndex).addStones(1); // later implement if statements for playerTurn
             if (currentIndex >= 13) {currentIndex = 0;}
         }
+        pitList.get(index).removeStones();
+        return true;
+    }
+    public boolean undo() {
+        if (numberOfUndos==3) {
+            return false;
+        }
+        numberOfUndos++;
+        // later implement method for undo
         return true;
     }
 

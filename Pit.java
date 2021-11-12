@@ -6,4 +6,5 @@ public class Pit {
     public int getStones() {return stones;}
     public void addStones(int numberOfStones) {
         stones = stones+numberOfStones;}
+    public void removeStones() {stones = 0;}
 }
