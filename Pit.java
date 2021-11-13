@@ -7,4 +7,8 @@ public class Pit {
     public void addStones(int numberOfStones) {
         stones = stones+numberOfStones;}
     public void removeStones() {stones = 0;}
+    public void steal(Pit p){
+        this.stones = stones + p.getStones();
+        p.removeStones();
+    }
 }
