@@ -8,7 +8,7 @@
 
 public class MancalaTest {
     public static void main(String[] args) {
-        Mancala model = new Mancala(4);
+        Mancala model = new Mancala(4); // later implement main menu to choose number of stones
         
     }
 }

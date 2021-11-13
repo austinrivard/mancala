@@ -5,13 +5,13 @@ import java.util.*;
  */
 
 public class Mancala {
-    private boolean playerTurn; //True = Player A's turn. False = Player B's turn. Maybe rename variable?
-                                //Need to implement updating variable after each player's turn. 
+    private boolean playerTurn = true;     //True = Player A's turn. False = Player B's turn. Maybe rename variable?
+    private int numberOfUndos = 0;  //Need to implement updating variable after each player's turn. 
     private ArrayList<Pit> pitList = new ArrayList<Pit>(14);
     public Mancala(int numberOfStones) {
         for (Pit p: pitList) {
             if (pitList.indexOf(p)== 6 || pitList.indexOf(p)== 13) {
-                p = new MancalaPit(numberOfStones);
+                p = new MancalaPit(0);
             }
             else {p = new Pit(numberOfStones);}
             
@@ -23,9 +23,11 @@ public class Mancala {
         int currentIndex = index;
         
         for (int i = moves; i > 0; i--) {
-            pitList.get(currentIndex).addStones(1);
+
+            pitList.get(currentIndex).addStones(1); // later implement if statements for playerTurn
             if (currentIndex >= 13) {currentIndex = 0;}
         }
+        pitList.get(index).removeStones();
         return true;
     }
     public boolean undo(){
@@ -33,9 +35,13 @@ public class Mancala {
     To implement this, was thinking of adding a placeholder for original status of each pit in the board. (done)
     Still need to add onto end turn function.
     */
+        if (numberOfUndos==3) {
+            return false;
+        }
         for (Pit p: pitList) {
             p.revertStones();
         }
+        numberOfUndos++;
         return true;
     }
     public boolean getTurn(){
