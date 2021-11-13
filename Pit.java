@@ -15,4 +15,8 @@ public class Pit {
         this.oldStones = stones;
     }
     public void removeStones() {stones = 0;}
+    public void steal(Pit p){
+        this.stones = stones + p.getStones();
+        p.removeStones();
+    }
 }
