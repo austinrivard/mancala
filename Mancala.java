@@ -41,6 +41,16 @@ public class Mancala {
         refreshUndo();
         playerTurn = !playerTurn;
         turnMade = false;
+
+        /* Add function where you check each players side after every ENDTURN to see if the game ends. */
+        for (index = 0; index < 6; index++) {
+            if (pitList.get(index) != 0) {break;}
+        }
+
+        for (index = 7; index < 13; index++) {
+            if (pitList.get(index) != 0) {break;}
+        }
+
         return;
     }
     public boolean undo() {
