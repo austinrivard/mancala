@@ -44,8 +44,12 @@ public class Mancala {
         numberOfUndos++;
         return true;
     }
-    public boolean getTurn(){
+    public boolean getTurn() {
         return playerTurn;
+    }
+    public void refreshUndo() { //Used after the completion of a player's turn
+        numberOfUndos = 0;
+        return;
     }
 
 
