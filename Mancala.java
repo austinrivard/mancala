@@ -18,7 +18,7 @@ public class Mancala {
             
         }
     }
-    public boolean pickPit(int index) {
+    public boolean pickPit(int index) { //Need to add free turn functionality when landing in your own mancala.
         if (!turnMade) {return false;}
         if (index < 0 || index == 6 || index == 13) {return false;}
         int moves = pitList.get(index).getStones();
@@ -36,7 +36,7 @@ public class Mancala {
     public void endTurn() { //When player hits endTurn button.
         if (!turnMade) {return;}
         for (Pit p: pitList) {
-            p.updateStones();
+            p.updateOldStones();
         }
         refreshUndo();
         playerTurn = !playerTurn;
