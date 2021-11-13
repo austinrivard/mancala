@@ -5,8 +5,9 @@ import java.util.*;
  */
 
 public class Mancala {
-    private boolean playerTurn = true;     //True = Player A's turn. False = Player B's turn. Maybe rename variable?
-    private int numberOfUndos = 0;  //Need to implement updating variable after each player's turn. 
+    private boolean playerTurn = true;  //True = Player A's turn. False = Player B's turn. Maybe rename variable?
+    private boolean turnMade = false;
+    private int numberOfUndos = 0;
     private ArrayList<Pit> pitList = new ArrayList<Pit>(14);
     public Mancala(int numberOfStones) {
         for (Pit p: pitList) {
@@ -18,6 +19,7 @@ public class Mancala {
         }
     }
     public boolean pickPit(int index) {
+        if (!turnMade) {return false;}
         if (index < 0 || index == 6 || index == 13) {return false;}
         int moves = pitList.get(index).getStones();
         int currentIndex = index;
@@ -28,14 +30,24 @@ public class Mancala {
             if (currentIndex >= 13) {currentIndex = 0;}
         }
         pitList.get(index).removeStones();
+        turnMade = true;
         return true;
     }
-    public boolean undo(){
+    public void endTurn() { //When player hits endTurn button.
+        if (!turnMade) {return;}
+        for (Pit p: pitList) {
+            p.updateStones();
+        }
+        refreshUndo();
+        playerTurn = !playerTurn;
+        turnMade = false;
+        return;
+    }
+    public boolean undo() {
     /*
-    To implement this, was thinking of adding a placeholder for original status of each pit in the board. (done)
     Still need to add onto end turn function.
     */
-        if (numberOfUndos==3) {
+        if (numberOfUndos==3) { //Possibly add statement into view saying "Max # of undos reached"?
             return false;
         }
         for (Pit p: pitList) {
