@@ -5,7 +5,8 @@ import java.util.*;
  */
 
 public class Mancala {
-    private boolean playerTurn = true; // true = player 1's turn; false = player 2's turn
+    private boolean playerTurn = true;  //True = Player A's turn. False = Player B's turn. Maybe rename variable?
+    private boolean turnMade = false;
     private int numberOfUndos = 0;
     private ArrayList<Pit> pitList = new ArrayList<Pit>(14);
     public Mancala(int numberOfStones) {
@@ -17,7 +18,8 @@ public class Mancala {
             
         }
     }
-    public boolean pickPit(int index) {
+    public boolean pickPit(int index) { //Need to add free turn functionality when landing in your own mancala.
+        if (!turnMade) {return false;}
         if (index < 0 || index == 6 || index == 13) {return false;}
         int moves = pitList.get(index).getStones();
         pitList.get(index).removeStones();
@@ -44,15 +46,39 @@ public class Mancala {
             playerTurn = !playerTurn; // Player ends their turn
         }
         
+        pitList.get(index).removeStones();
+        turnMade = true;
         return true;
     }
+    public void endTurn() { //When player hits endTurn button.
+        if (!turnMade) {return;}
+        for (Pit p: pitList) {
+            p.updateOldStones();
+        }
+        refreshUndo();
+        playerTurn = !playerTurn;
+        turnMade = false;
+        return;
+    }
     public boolean undo() {
-        if (numberOfUndos==3) {
+    /*
+    Still need to add onto end turn function.
+    */
+        if (numberOfUndos==3) { //Possibly add statement into view saying "Max # of undos reached"?
             return false;
         }
+        for (Pit p: pitList) {
+            p.revertStones();
+        }
         numberOfUndos++;
-        // later implement method for undo
         return true;
+    }
+    public boolean getTurn() {
+        return playerTurn;
+    }
+    public void refreshUndo() { //Used after the completion of a player's turn
+        numberOfUndos = 0;
+        return;
     }
 
 
