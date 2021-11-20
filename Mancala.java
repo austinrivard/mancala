@@ -59,13 +59,14 @@ public class Mancala {
         player1Turn = !player1Turn;
         actionMade = false;
 
+        int index;
         /* Add function where you check each players side after every ENDTURN to see if the game ends. */
         for (index = 0; index < 6; index++) {
-            if (pitList.get(index) != 0) {break;}
+            if (pitList.get(index).getStones() != 0) {break;}
         }
 
         for (index = 7; index < 13; index++) {
-            if (pitList.get(index) != 0) {break;}
+            if (pitList.get(index).getStones() != 0) {break;}
         }
 
         //^^^Add in a gameEnd function if one of these two conditions are satisfied.
