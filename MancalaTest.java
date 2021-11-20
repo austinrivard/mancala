@@ -24,6 +24,9 @@ public class MancalaTest {
                                                         numStoneOptions,
                                                         null);
         int numStones = numStoneOptions[choice];
+        ImageIcon[] stoneStyles = new ImageIcon[2];
+        stoneStyles[0] = new ImageIcon("img/stones0.png");
+        stoneStyles[1] = new ImageIcon("img/stones1.png");
 
         ImageIcon[] mancalaStyles = new ImageIcon[2];
         mancalaStyles[0] = new ImageIcon("img/mancala0.png");
@@ -32,6 +35,16 @@ public class MancalaTest {
         ImageIcon[] pitsStyles = new ImageIcon[2];
         pitsStyles[0] = new ImageIcon("img/pits0.png");
         pitsStyles[1] = new ImageIcon("img/pits1.png");
+
+        choice = JOptionPane.showInternalOptionDialog(frame,
+                                                     "Choose stone style",
+                                                     "",
+                                                     JOptionPane.DEFAULT_OPTION,
+                                                     JOptionPane.PLAIN_MESSAGE,
+                                                     null,
+                                                     stoneStyles,
+                                                     null);
+        Icon stoneIcon = stoneStyles[choice];   
 
         choice = JOptionPane.showInternalOptionDialog(frame,
                                                      "Choose mancala style",
@@ -56,6 +69,7 @@ public class MancalaTest {
         Style style = new Style() {
             public MancalaPanel mancalaPanel() { return new MancalaPanel(mancalaIcon); }
             public PitsPanel pitsPanel() { return new PitsPanel(pitsIcon); }
+            public StonePanel stonePanel() {return new StonePanel(stoneIcon);}
         };
 
         frame.dispose();
