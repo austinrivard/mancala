@@ -5,6 +5,8 @@ public class PitsPanel extends JPanel {
     private ArrayList<PitButton> pitsList;
 
     public PitsPanel(Icon icon) {
+        pitsList = new ArrayList<PitButton>();
+        
         for (int i = 0; i < 6; i++) {
             pitsList.add(new PitButton(icon, i));
             add(pitsList.get(i));
