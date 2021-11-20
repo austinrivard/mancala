@@ -4,9 +4,9 @@ import javax.swing.*;
 public class PitsPanel extends JPanel {
     private ArrayList<PitButton> pitsList;
 
-    public PitsPanel(PitIcon pitIcon) {
+    public PitsPanel(Icon icon) {
         for (int i = 0; i < 6; i++) {
-            pitsList.add(new PitButton(pitIcon, i));
+            pitsList.add(new PitButton(icon, i));
             add(pitsList.get(i));
         }
     }

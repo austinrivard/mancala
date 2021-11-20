@@ -7,15 +7,9 @@ public class MancalaBoard {
     private Style style;
     private MancalaPanel mancalaA, mancalaB;
     private PitsPanel pitsA, pitsB;
-    private int numStones;
 
-    public MancalaBoard(Mancala game, Style style, int numStones) {
-        // JFrame settingsFrame = new JFrame();
-        // settingsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //perhaps we implement the settings window here
-        
+    public MancalaBoard(Mancala game, Style style) {
         this.style = style;
-        this.numStones = numStones;
         mancalaA = style.mancalaPanel();
         mancalaB = style.mancalaPanel();
         pitsA = style.pitsPanel();
