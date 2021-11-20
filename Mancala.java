@@ -1,7 +1,7 @@
 import java.util.*;
 /**
  * Mancala - a game in which two players move stones around the board
- * with the goal of getting the most number of stones in their mancala.
+ * with the goal of getting the most number of stones in their mancala. (Model)
  */
 
 public class Mancala {
@@ -46,7 +46,6 @@ public class Mancala {
             player1Turn = !player1Turn; // Player ends their turn
         }
         
-        pitList.get(index).removeStones();
         actionMade = true;
         return true;
     }
