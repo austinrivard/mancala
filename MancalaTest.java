@@ -99,7 +99,7 @@ public class MancalaTest {
         Style style = new Style() {
             public MancalaPanel mancalaPanel() { return new MancalaPanel(mancalaIcon); }
             public PitsPanel pitsPanel() { return new PitsPanel(pitsIcon); }
-            public Icon stoneIcon() { return stoneIcon; }
+            public StonePanel stonePanel() { return new StonePanel(stoneIcon); }
         };
         
         Mancala game = new Mancala(numStones);
