@@ -30,10 +30,10 @@ public class MancalaTest {
         }
 
         JRadioButton[] mancalaStylesButtons = new JRadioButton[2];
-        ImageIcon icon = new ImageIcon("img/mancala0.png");
+        ImageIcon icon = new ImageIcon("img/pit0.png");
         icon.setImage(icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         mancalaStylesButtons[0] = new JRadioButton(icon);
-        icon = new ImageIcon("img/mancala1.png");
+        icon = new ImageIcon("img/pit1.png");
         icon.setImage(icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         mancalaStylesButtons[1] = new JRadioButton(icon);
         ButtonGroup mancalaStylesGroup = new ButtonGroup();
