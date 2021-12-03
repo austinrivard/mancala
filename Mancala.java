@@ -91,6 +91,9 @@ public class Mancala {
         numberOfUndos = 0;
         return;
     }
+    public ArrayList<Pit> getPitList() {
+        return pitList;
+    }
 
 
 }
