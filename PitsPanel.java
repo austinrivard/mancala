@@ -8,9 +8,16 @@ public class PitsPanel extends JPanel {
         pitsList = new ArrayList<PitButton>();
         
         for (int i = 0; i < 6; i++) {
-            pitsList.add(new PitButton(icon, i));
-            add(pitsList.get(i));
+            PitButton btn = new PitButton(icon);
+            btn.setFocusPainted(false);
+            btn.setContentAreaFilled(false);
+            btn.setOpaque(false);
+            btn.setBorderPainted(false);
+            
+            pitsList.add(btn);
+            add(btn);
         }
+        setOpaque(false);
     }
 
     public PitButton getPitButton(int index) {

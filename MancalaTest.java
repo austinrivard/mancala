@@ -6,102 +6,213 @@
  * @author Brendan Requierme
  */
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
-import java.io.File;
 
 public class MancalaTest {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Mancala Settings");
+        startSettingsWindow();
+    }
+
+    private static void startSettingsWindow() {
+        JFrame frame = new JFrame("Style Settings Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocation(200, 200);
         frame.setPreferredSize(new Dimension(300, 400));
 
-        JPanel settingsPanel = new JPanel();
+        JPanel settingsPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
-        JRadioButton[] numStonesButtons = new JRadioButton[2];
-        numStonesButtons[0] = new JRadioButton("3");
-        numStonesButtons[1] = new JRadioButton("4");
-        ButtonGroup numStonesGroup = new ButtonGroup();
-        for (JRadioButton btn : numStonesButtons) {
-            numStonesGroup.add(btn);        
-            settingsPanel.add(btn);
+        c.insets = new Insets(3, 3, 3, 3);
+        c.gridy = 0;
+        c.gridwidth = 2;
+        JLabel label = new JLabel("Number of stones");
+        settingsPanel.add(label, c);
+        
+        c.gridy = 1;
+        c.gridwidth = 1;
+        JButton[] numStonesButtons = new JButton[2];
+        for (int i = 0; i <= 1; i++) {
+            c.gridx = i;
+            String text = String.valueOf(i + 3);
+            JButton newButton = new JButton(text);
+            newButton.setFocusPainted(false);
+            newButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+            newButton.setBorderPainted(false);
+            newButton.setPreferredSize(new Dimension(32, 32));
+            newButton.addActionListener(e -> {
+                JButton srcBtn = (JButton) e.getSource();
+                for (JButton btn : numStonesButtons) {
+                    boolean selected = btn == srcBtn;
+                    btn.setSelected(selected);
+                    btn.setBorderPainted(selected);
+                }
+            });
+            settingsPanel.add(newButton, c);
+            numStonesButtons[i] = newButton;
         }
 
-        JRadioButton[] mancalaStylesButtons = new JRadioButton[2];
-        ImageIcon icon = new ImageIcon("img/mancala0.png");
-        icon.setImage(icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
-        mancalaStylesButtons[0] = new JRadioButton(icon);
-        icon = new ImageIcon("img/mancala1.png");
-        icon.setImage(icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
-        mancalaStylesButtons[1] = new JRadioButton(icon);
-        ButtonGroup mancalaStylesGroup = new ButtonGroup();
-        for (JRadioButton btn : mancalaStylesButtons) {
-            mancalaStylesGroup.add(btn);
-            settingsPanel.add(btn);
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridwidth = 2;
+        label = new JLabel("Board style");
+        settingsPanel.add(label, c);
+
+        c.gridy = 3;
+        c.gridwidth = 1;
+        JButton[] boardStylesButtons = new JButton[2];
+        for (int i = 0; i <= 1; i++) {
+            c.gridx = i;
+            ImageIcon icon = new ImageIcon(String.format("img/board%d.png", i));
+            icon.setImage(icon.getImage().getScaledInstance(800, 400, java.awt.Image.SCALE_SMOOTH));
+            JButton newButton = new JButton(icon);
+            newButton.setFocusPainted(false);
+            newButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+            newButton.setBorderPainted(false);
+            newButton.setPreferredSize(new Dimension(32, 32));
+            newButton.addActionListener(e -> {
+                JButton srcBtn = (JButton) e.getSource();
+                for (JButton btn : boardStylesButtons) {
+                    boolean selected = btn == srcBtn;
+                    btn.setSelected(selected);
+                    btn.setBorderPainted(selected);
+                }
+            });
+            settingsPanel.add(newButton, c);
+            boardStylesButtons[i] = newButton;
         }
 
-        JRadioButton[] pitsStylesButtons = new JRadioButton[2];
-        icon = new ImageIcon("img/pit0.png");
-        icon.setImage(icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
-        pitsStylesButtons[0] = new JRadioButton(icon);
-        icon = new ImageIcon("img/pit1.png");
-        icon.setImage(icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
-        pitsStylesButtons[1] = new JRadioButton(icon);
-        ButtonGroup pitsStylesGroup = new ButtonGroup();
-        for (JRadioButton btn : pitsStylesButtons) {
-            pitsStylesGroup.add(btn);
-            settingsPanel.add(btn);
+        c.gridx = 0;
+        c.gridy = 4;
+        c.gridwidth = 2;
+        settingsPanel.add(new JLabel("Mancala style"), c);
+
+        c.gridy = 5;
+        c.gridwidth = 1;
+        JButton[] mancalaStylesButtons = new JButton[2];
+        for (int i = 0; i <= 1; i++) {
+            c.gridx = i;
+            ImageIcon icon = new ImageIcon(String.format("img/mancala%d.png", i));
+            icon.setImage(icon.getImage().getScaledInstance(60, 100, java.awt.Image.SCALE_SMOOTH));
+            JButton newButton = new JButton(icon);
+            newButton.setFocusPainted(false);
+            newButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+            newButton.setBorderPainted(false);
+            newButton.setPreferredSize(new Dimension(32, 32));
+            newButton.addActionListener(e -> {
+                JButton srcBtn = (JButton) e.getSource();
+                for (JButton btn : mancalaStylesButtons) {
+                    boolean selected = btn == srcBtn;
+                    btn.setSelected(selected);
+                    btn.setBorderPainted(selected);
+                }
+            });
+            settingsPanel.add(newButton, c);
+            mancalaStylesButtons[i] = newButton;
         }
 
-        JRadioButton[] stonesStylesButtons = new JRadioButton[2];
-        icon = new ImageIcon("img/stone0.png");
-        icon.setImage(icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
-        stonesStylesButtons[0] = new JRadioButton(icon);
-        icon = new ImageIcon("img/stone1.png");
-        icon.setImage(icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
-        stonesStylesButtons[1] = new JRadioButton(icon);
-        ButtonGroup stonesStylesGroup = new ButtonGroup();
-        for (JRadioButton btn : stonesStylesButtons) {
-            stonesStylesGroup.add(btn);
-            settingsPanel.add(btn);
+        c.gridx = 0;
+        c.gridy = 6;
+        c.gridwidth = 2;
+        settingsPanel.add(new JLabel("Pit style"), c);
+
+        c.gridy = 7;
+        c.gridwidth = 1;
+        JButton[] pitsStylesButtons = new JButton[2];
+        for (int i = 0; i <= 1; i++) {
+            c.gridx = i;
+            ImageIcon icon = new ImageIcon(String.format("img/pit%d.png", i));
+            icon.setImage(icon.getImage().getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH));
+            JButton newButton = new JButton(icon);
+            newButton.setFocusPainted(false);
+            newButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+            newButton.setBorderPainted(false);
+            newButton.setPreferredSize(new Dimension(32, 32));
+            newButton.addActionListener(e -> {
+                JButton srcBtn = (JButton) e.getSource();
+                for (JButton btn : pitsStylesButtons) {
+                    boolean selected = btn == srcBtn;
+                    btn.setSelected(selected);
+                    btn.setBorderPainted(selected);
+                }
+            });
+            settingsPanel.add(newButton, c);
+            pitsStylesButtons[i] = newButton;
+        }
+
+        c.gridx = 0;
+        c.gridy = 8;
+        c.gridwidth = 2;
+        settingsPanel.add(new JLabel("Stone style"), c);
+
+        c.gridy = 9;
+        c.gridwidth = 1;
+        JButton[] stonesStylesButtons = new JButton[2];
+        for (int i = 0; i <= 1; i++) {
+            c.gridx = i;
+            ImageIcon icon = new ImageIcon(String.format("img/stone%d.png", i));
+            icon.setImage(icon.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
+            JButton newButton = new JButton(icon);
+            newButton.setFocusPainted(false);
+            newButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+            newButton.setBorderPainted(false);
+            newButton.setPreferredSize(new Dimension(32, 32));
+            newButton.addActionListener(e -> {
+                JButton srcBtn = (JButton) e.getSource();
+                for (JButton btn : stonesStylesButtons) {
+                    boolean selected = btn == srcBtn;
+                    btn.setSelected(selected);
+                    btn.setBorderPainted(selected);
+                }
+            });
+            settingsPanel.add(newButton, c);
+            stonesStylesButtons[i] = newButton;
         }
 
         JButton startButton = new JButton("Start Game");
         startButton.addActionListener(event -> {
             int numStones = 0;
-            for (JRadioButton btn : numStonesButtons) if (btn.isSelected()) numStones = Integer.parseInt(btn.getText());
+            for (JButton btn : numStonesButtons) if (btn.isSelected()) numStones = Integer.parseInt(btn.getText());
+
+            Icon boardIcon = null;
+            for (JButton btn : boardStylesButtons) if (btn.isSelected()) boardIcon = btn.getIcon();
 
             Icon mancalaIcon = null;
-            for (JRadioButton btn : mancalaStylesButtons) if (btn.isSelected()) mancalaIcon = btn.getIcon();
+            for (JButton btn : mancalaStylesButtons) if (btn.isSelected()) mancalaIcon = btn.getIcon();
 
             Icon pitsIcon = null;
-            for (JRadioButton btn : pitsStylesButtons) if (btn.isSelected()) pitsIcon = btn.getIcon();
+            for (JButton btn : pitsStylesButtons) if (btn.isSelected()) pitsIcon = btn.getIcon();
 
             Icon stoneIcon = null;
-            for (JRadioButton btn : stonesStylesButtons) if (btn.isSelected()) stoneIcon = btn.getIcon();
+            for (JButton btn : stonesStylesButtons) if (btn.isSelected()) stoneIcon = btn.getIcon();
             
 
-            if (numStones != 0 && mancalaIcon != null && pitsIcon != null && stoneIcon != null) {
+            if (numStones != 0 && boardIcon != null 
+                && mancalaIcon != null && pitsIcon != null && stoneIcon != null) {
                 frame.dispose();
-                startGame(numStones, mancalaIcon, pitsIcon, stoneIcon);
+                startGame(numStones, boardIcon, mancalaIcon, pitsIcon, stoneIcon);
             }
         });
-        settingsPanel.add(startButton);
+        c.gridy = 10;
+        c.gridx = 0;
+        c.gridwidth = 2;
+        // c.weightx = 1.;
+        settingsPanel.add(startButton, c);
 
         frame.add(settingsPanel);
         frame.pack();
         frame.setVisible(true);
     }
 
-    private static void startGame(int numStones, Icon mancalaIcon, Icon pitsIcon, Icon stoneIcon) {
+    private static void startGame(int numStones, Icon boardIcon, Icon mancalaIcon, Icon pitsIcon, Icon stoneIcon) {
         Style style = new Style() {
-            public MancalaPanel mancalaPanel() { return new MancalaPanel(mancalaIcon); }
-            public PitsPanel pitsPanel() { return new PitsPanel(pitsIcon); }
-            public StonePanel stonePanel() { return new StonePanel(stoneIcon); }
+            public int numStones() { return numStones; }
+            public Icon boardIcon() { return boardIcon; }
+            public Icon mancalaIcon() { return mancalaIcon; }
+            public Icon pitIcon() { return pitsIcon; }
+            public Icon stoneIcon() { return stoneIcon; }
         };
-        
         Mancala game = new Mancala(numStones);
         MancalaBoard board = new MancalaBoard(game, style);
     }
