@@ -8,8 +8,10 @@ public class Mancala {
     private boolean player1Turn = true;
     private boolean actionMade = false;
     private int numberOfUndos = 0;
-    private ArrayList<Pit> pitList = new ArrayList<Pit>(14);
+    private ArrayList<Pit> pitList;
+
     public Mancala(int numberOfStones) {
+        pitList = new ArrayList<Pit>(14);
         for (Pit p: pitList) {
             if (pitList.indexOf(p)== 6 || pitList.indexOf(p)== 13) {
                 p = new MancalaPit(0);
