@@ -12,6 +12,9 @@ public class Pit {
     public void addStones(int numberOfStones) {
         stones = stones+numberOfStones;
     }
+    /**
+     * Used for the undo functionality in mancala
+     */
     public void revertStones() { //Used for the undo functionality in Mancala
         this.stones = oldStones;
     }
