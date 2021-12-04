@@ -36,7 +36,7 @@ public class Mancala {
      * @return Whether or not an action has been made.
      */
     public boolean pickPit(int index) { //Need to add free turn functionality when landing in your own mancala.
-        if (!actionMade) {return false;}
+        if (actionMade) {return false;}
         if (index < 0 || index == 6 || index == 13) {return false;}
         int moves = pitList.get(index).getStones();
         pitList.get(index).removeStones();
