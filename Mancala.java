@@ -68,14 +68,14 @@ public class Mancala {
             if (currentIndex > 13) {currentIndex = 0;}
         }
         int indexOfOpposite = 12 - currentIndex;
-        if(currentIndex == 13 || currentIndex == 6) {
+        if(currentIndex == 13 || currentIndex == 6) { // Special Case: Marble Lands in Mancala
             System.out.println("Ending index is: " + currentIndex);
             actionMade = !actionMade;
-        } // Special Case: Marble Lands in Mancala
+        } 
         else if(pitList.get(currentIndex).getStones()==0 && currentIndex > 6 && player1Turn == false) // Special Case: Marble lands in empty spot in player 2's side of board
         {
-                pitList.get(13).steal(pitList.get(indexOfOpposite));
-                pitList.get(13).steal(pitList.get(currentIndex)); 
+                pitList.get(13).steal(pitList.get(indexOfOpposite)); //Steals stones from opposite pit into Mancala B
+                pitList.get(13).steal(pitList.get(currentIndex)); //Steals stones from ending put into Mancala B
         } 
         else if(pitList.get(currentIndex).getStones()==0 && currentIndex < 6 && player1Turn == true) // Special Case: Marble lands in empty spot on player 1's side of board
         {
