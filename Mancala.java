@@ -61,11 +61,13 @@ public class Mancala {
         if(currentIndex == 13 || currentIndex == 6){} // Special Case: Marble Lands in Mancala
         else if(pitList.get(currentIndex).getStones()==0 && currentIndex > 6 && player1Turn == false) // Special Case: Marble lands in empty spot in player 2's side of board
         {
-            pitList.get(currentIndex).steal(pitList.get(indexOfOpposite));
+                pitList.get(13).steal(pitList.get(indexOfOpposite));
+                pitList.get(13).steal(pitList.get(currentIndex)); 
         } 
         else if(pitList.get(currentIndex).getStones()==0 && currentIndex < 6 && player1Turn == true) // Special Case: Marble lands in empty spot on player 1's side of board
         {
-            pitList.get(currentIndex).steal(pitList.get(indexOfOpposite));
+                pitList.get(6).steal(pitList.get(indexOfOpposite));
+                pitList.get(6).steal(pitList.get(currentIndex));
         }
         else {
             //player1Turn = !player1Turn; // Player ends their turn
