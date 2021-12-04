@@ -1,15 +1,13 @@
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
 /**
- * Provides a user interface to play Mancala.
+ * Provides a user interface to play Mancala. (View, Controller)
  * 
  * @author Austin Rivard
  * @author Robert Yav
  * @author Brendan Requierme
  */
-
-import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import java.awt.*;
-
 public class MancalaTest {
     public static void main(String[] args) {
         startSettingsWindow();
@@ -182,7 +180,14 @@ public class MancalaTest {
         frame.pack();
         frame.setVisible(true);
     }
-
+    /**
+     * Starts the game with the options chosen from the GUI.
+     * @param numStones Number of stones each pit starts off with.
+     * @param boardIcon Style of icon used for the board
+     * @param mancalaIcon Style of icon used for the mancala pit
+     * @param pitsIcon Style of icon used for the pits
+     * @param stoneIcon Style of icon used for the stones
+     */
     private static void startGame(int numStones, Icon boardIcon, Icon mancalaIcon, Icon pitsIcon, Icon stoneIcon) {
         Style style = new Style() {
             public int numStones() { return numStones; }

@@ -1,3 +1,6 @@
+/**
+ * Part of the model, pits in the mancala board. Holds stones that are then taken and distributed into other pits.
+ */
 public class Pit {
     private int stones;
     private int oldStones;
