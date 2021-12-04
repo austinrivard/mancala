@@ -36,7 +36,23 @@ public class MancalaBoard {
                 System.out.printf("picked pit %d\n", Integer.valueOf(btn.getActionCommand()));
             });
         }
+/**
+        JButton undoButton = new JButton("Undo"); //undo button undos last move made if there was one
+        undoButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        undoButton.setHorizontalTextPosition(SwingConstants.CENTER - 200);
+        //undoButton.setActionCommand(game.undo());
+        undoButton.addActionListener(event -> {
+            game.undo();
+        });
 
+        JButton endTurnButton = new JButton("End Turn"); //end turn button once player makes a move
+        undoButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        undoButton.setHorizontalTextPosition(SwingConstants.CENTER + 200);
+        endTurnButton.addActionListener(event -> { 
+            game.endTurn();
+        });
+*/
+        
         JLabel boardLabel = new JLabel(style.boardIcon());
         boardLabel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
