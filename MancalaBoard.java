@@ -84,6 +84,7 @@ public class MancalaBoard {
         endTurnButton.addActionListener(event -> { 
             game.endTurn();
         });
+        
         JTextArea playerTurn = new JTextArea();
         playerTurn.setText("Player 1's Turn");
         ChangeListener listener = new ChangeListener() {
