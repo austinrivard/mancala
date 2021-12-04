@@ -64,13 +64,15 @@ public class MancalaTest {
         JButton[] boardStylesButtons = new JButton[2];
         for (int i = 0; i <= 1; i++) {
             c.gridx = i;
-            ImageIcon icon = new ImageIcon(String.format("img/board%d.png", i));
-            icon.setImage(icon.getImage().getScaledInstance(800, 400, java.awt.Image.SCALE_SMOOTH));
+            String filename = String.format("img/board%d.png", i);
+            ImageIcon icon = new ImageIcon(filename);
+            icon.setImage(icon.getImage().getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH));
             JButton newButton = new JButton(icon);
             newButton.setFocusPainted(false);
             newButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
             newButton.setBorderPainted(false);
             newButton.setPreferredSize(new Dimension(32, 32));
+            newButton.setActionCommand(filename);
             newButton.addActionListener(e -> {
                 JButton srcBtn = (JButton) e.getSource();
                 for (JButton btn : boardStylesButtons) {
@@ -84,35 +86,6 @@ public class MancalaTest {
         }
 
         c.gridx = 0;
-        c.gridy = 4;
-        c.gridwidth = 2;
-        settingsPanel.add(new JLabel("Mancala style"), c);
-
-        c.gridy = 5;
-        c.gridwidth = 1;
-        JButton[] mancalaStylesButtons = new JButton[2];
-        for (int i = 0; i <= 1; i++) {
-            c.gridx = i;
-            ImageIcon icon = new ImageIcon(String.format("img/mancala%d.png", i));
-            icon.setImage(icon.getImage().getScaledInstance(60, 100, java.awt.Image.SCALE_SMOOTH));
-            JButton newButton = new JButton(icon);
-            newButton.setFocusPainted(false);
-            newButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-            newButton.setBorderPainted(false);
-            newButton.setPreferredSize(new Dimension(32, 32));
-            newButton.addActionListener(e -> {
-                JButton srcBtn = (JButton) e.getSource();
-                for (JButton btn : mancalaStylesButtons) {
-                    boolean selected = btn == srcBtn;
-                    btn.setSelected(selected);
-                    btn.setBorderPainted(selected);
-                }
-            });
-            settingsPanel.add(newButton, c);
-            mancalaStylesButtons[i] = newButton;
-        }
-
-        c.gridx = 0;
         c.gridy = 6;
         c.gridwidth = 2;
         settingsPanel.add(new JLabel("Pit style"), c);
@@ -122,13 +95,15 @@ public class MancalaTest {
         JButton[] pitsStylesButtons = new JButton[2];
         for (int i = 0; i <= 1; i++) {
             c.gridx = i;
-            ImageIcon icon = new ImageIcon(String.format("img/pit%d.png", i));
-            icon.setImage(icon.getImage().getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH));
+            String filename = String.format("img/pit%d.png", i);
+            ImageIcon icon = new ImageIcon(filename);
+            icon.setImage(icon.getImage().getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH));
             JButton newButton = new JButton(icon);
             newButton.setFocusPainted(false);
             newButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
             newButton.setBorderPainted(false);
             newButton.setPreferredSize(new Dimension(32, 32));
+            newButton.setActionCommand(filename);
             newButton.addActionListener(e -> {
                 JButton srcBtn = (JButton) e.getSource();
                 for (JButton btn : pitsStylesButtons) {
@@ -152,7 +127,7 @@ public class MancalaTest {
         for (int i = 0; i <= 1; i++) {
             c.gridx = i;
             ImageIcon icon = new ImageIcon(String.format("img/stone%d.png", i));
-            icon.setImage(icon.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
+            icon.setImage(icon.getImage().getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH));
             JButton newButton = new JButton(icon);
             newButton.setFocusPainted(false);
             newButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
@@ -175,21 +150,25 @@ public class MancalaTest {
             int numStones = 0;
             for (JButton btn : numStonesButtons) if (btn.isSelected()) numStones = Integer.parseInt(btn.getText());
 
-            Icon boardIcon = null;
-            for (JButton btn : boardStylesButtons) if (btn.isSelected()) boardIcon = btn.getIcon();
+            String filename = "";
+            for (JButton btn : boardStylesButtons) if (btn.isSelected()) filename = btn.getActionCommand();
+            ImageIcon boardIcon = new ImageIcon(filename);
+            boardIcon.setImage(boardIcon.getImage().getScaledInstance(1000, 500, Image.SCALE_SMOOTH));
 
-            Icon mancalaIcon = null;
-            for (JButton btn : mancalaStylesButtons) if (btn.isSelected()) mancalaIcon = btn.getIcon();
-
-            Icon pitsIcon = null;
-            for (JButton btn : pitsStylesButtons) if (btn.isSelected()) pitsIcon = btn.getIcon();
+            filename = "";
+            for (JButton btn : pitsStylesButtons) if (btn.isSelected()) filename = btn.getActionCommand();
+            ImageIcon pitsIcon = new ImageIcon(filename);
+            pitsIcon.setImage(pitsIcon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
+            ImageIcon mancalaIcon = new ImageIcon(filename);
+            
+            mancalaIcon.setImage(mancalaIcon.getImage().getScaledInstance(150, 400, Image.SCALE_SMOOTH));
 
             Icon stoneIcon = null;
             for (JButton btn : stonesStylesButtons) if (btn.isSelected()) stoneIcon = btn.getIcon();
             
 
-            if (numStones != 0 && boardIcon != null 
-                && mancalaIcon != null && pitsIcon != null && stoneIcon != null) {
+            if (numStones != 0 && boardIcon != null && pitsIcon != null && stoneIcon != null) {
+                // Icon mancalaIcon = pitsIcon;
                 frame.dispose();
                 startGame(numStones, boardIcon, mancalaIcon, pitsIcon, stoneIcon);
             }
@@ -197,7 +176,6 @@ public class MancalaTest {
         c.gridy = 10;
         c.gridx = 0;
         c.gridwidth = 2;
-        // c.weightx = 1.;
         settingsPanel.add(startButton, c);
 
         frame.add(settingsPanel);
