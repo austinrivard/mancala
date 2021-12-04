@@ -82,7 +82,7 @@ public class Mancala {
      * A player ends their turn. Checks if all stones on a player's side is empty before either continuing or ending the game.
      */
     public void endTurn() {
-        if (actionMade) {return;}
+        if (!actionMade) {return;}
         for (Pit p: pitList) {
             p.updateOldStones();
         }

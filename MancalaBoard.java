@@ -93,7 +93,7 @@ public class MancalaBoard {
         JButton endTurnButton = new JButton("End Turn");
         undoButton.setVerticalTextPosition(SwingConstants.CENTER);
         undoButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        endTurnButton.addActionListener(event -> { 
+        endTurnButton.addActionListener(event -> {
             game.endTurn();
         });
         
