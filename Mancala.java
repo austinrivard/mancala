@@ -36,16 +36,20 @@ public class Mancala {
      * @return Whether or not an action has been made.
      */
     public boolean pickPit(int index) { //Need to add free turn functionality when landing in your own mancala.
+        if ( (index > 6 && player1Turn) || (index < 6 && !player1Turn)) {  //Player didn't choose their side.
+            System.out.println("Please choose a pit from your side.");
+            return false;
+        }
         if (actionMade) {return false;}
         if (index < 0 || index == 6 || index == 13) {return false;}
         int moves = pitList.get(index).getStones();
         pitList.get(index).removeStones();
         int currentIndex = index;
-        
+    
         for (int i = moves; i > 0; i--) {
             if (currentIndex == 6 && !player1Turn) {i++;}
             else if (currentIndex == 13 && player1Turn) {i++;}
-            else{pitList.get(currentIndex).addStones(1);}
+            else{pitList.get(currentIndex+1).addStones(1);}
             currentIndex++;
             if (currentIndex > 13) {currentIndex = 0;}
         }
@@ -60,7 +64,7 @@ public class Mancala {
             pitList.get(currentIndex).steal(pitList.get(indexOfOpposite));
         }
         else {
-            player1Turn = !player1Turn; // Player ends their turn
+            //player1Turn = !player1Turn; // Player ends their turn
         }
         
         for (ChangeListener cl : listeners) {
@@ -94,8 +98,17 @@ public class Mancala {
         }
 
         //^^^Add in a gameEnd function if one of these two conditions are satisfied.
+
+        if(player1Turn) {System.out.println("It is now player 1's turn.");} 
+        else { System.out.println("It is now player 2's turn.");}
+
         return;
     }
+
+    public int getNumOfUndos() {
+        return numberOfUndos;
+    }
+
     /**
      * Undoes a player's turn back to the beginning of the turn. Can only be used three times.
      * @return Whether or not a player's turn is able to be undone
@@ -104,12 +117,17 @@ public class Mancala {
     /*
     Still need to add onto end turn function.
     */
-        if (numberOfUndos==3) { //Possibly add statement into view saying "Max # of undos reached"?
+        if (!actionMade) { 
+            return false; 
+        }
+        if (numberOfUndos >= 3) { //Possibly add statement into view saying "Max # of undos reached"?
+            System.out.println("Max number of undos taken.");
             return false;
         }
         for (Pit p: pitList) {
             p.revertStones();
         }
+        actionMade = false;
         numberOfUndos++;
         return true;
     }
