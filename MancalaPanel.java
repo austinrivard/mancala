@@ -12,10 +12,9 @@ public class MancalaPanel extends JPanel {
     private int numStones;
     private Style style;
     private JLabel mancalaLabel;
-    private ArrayList<JLabel> stones;
+
     public MancalaPanel(Style style) {
         this.style = style;
-        stones = new ArrayList<JLabel>();
         mancalaLabel = new JLabel(style.mancalaIcon());
         mancalaLabel.setOpaque(false);
         setOpaque(false);
@@ -27,11 +26,15 @@ public class MancalaPanel extends JPanel {
         return mancalaLabel;
     }
 
+    public void repaint(Graphics g) {
+        paintComponent(g);
+    }
+
     public void paintComponent(Graphics g) {
         // super.paintComponent(g);
         Random r = new Random();
         for (int i = 0; i < numStones; i++) {
-            style.stoneIcon().paintIcon(mancalaLabel, g, 50 + r.nextInt(30), 100 + r.nextInt(200));
+            style.stoneIcon().paintIcon(this, g, 30 + r.nextInt(50), 150 + r.nextInt(100));
         }
     }
 

@@ -151,7 +151,7 @@ public class MancalaTest {
             String filename = "";
             for (JButton btn : boardStylesButtons) if (btn.isSelected()) filename = btn.getActionCommand();
             ImageIcon boardIcon = new ImageIcon(filename);
-            boardIcon.setImage(boardIcon.getImage().getScaledInstance(1000, 500, Image.SCALE_SMOOTH));
+            boardIcon.setImage(boardIcon.getImage().getScaledInstance(1200, 500, Image.SCALE_SMOOTH));
 
             filename = "";
             for (JButton btn : pitsStylesButtons) if (btn.isSelected()) filename = btn.getActionCommand();
@@ -159,7 +159,7 @@ public class MancalaTest {
             pitsIcon.setImage(pitsIcon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
             ImageIcon mancalaIcon = new ImageIcon(filename);
             
-            mancalaIcon.setImage(mancalaIcon.getImage().getScaledInstance(150, 400, Image.SCALE_SMOOTH));
+            mancalaIcon.setImage(mancalaIcon.getImage().getScaledInstance(130, 380, Image.SCALE_SMOOTH));
 
             Icon stoneIcon = null;
             for (JButton btn : stonesStylesButtons) if (btn.isSelected()) stoneIcon = btn.getIcon();
