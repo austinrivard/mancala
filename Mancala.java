@@ -31,17 +31,17 @@ public class Mancala {
     }
     /**
      * Given a pit, takes the stones from that pit and places one stone each into further pits.
-     * Special cases for when a player obtains an extra turn and when a player steals from the opposite adjacent side.
+     * Special cases for when a player obtains an extra turn by ending in their own mancala and when a player steals from the opposite adjacent side.
      * @param index Pit that is being chosen.
      * @return Whether or not an action has been made.
      */
-    public boolean pickPit(int index) { //Need to add free turn functionality when landing in your own mancala.
-        if ( (index > 6 && player1Turn) || (index < 6 && !player1Turn)) {  //Player didn't choose their side.
+    public boolean pickPit(int index) {
+        if ( (index > 6 && player1Turn) || (index < 6 && !player1Turn)) {  //Player didn't choose a pit on their side.
             System.out.println("Please choose a pit from your side.");
             return false;
         }
         int moves = pitList.get(index).getStones();
-        if(moves == 0) {
+        if(moves == 0) { //Player chose an empty pit on their side.
             System.out.println("Please choose a pit with stones in it.");
             return false;
         }
@@ -53,10 +53,6 @@ public class Mancala {
         for (int i = moves; i > 0; i--) {
             if (currentIndex == 6 && !player1Turn) {i++;}
             else if (currentIndex == 13 && player1Turn) {i++;}
-            //else if (currentIndex == 12) {
-            //    pitList.get(currentIndex+1).addStones(1);
-            //   currentIndex = 0;
-            //}
             else {
                 if (currentIndex == 13) {
                     pitList.get(0).addStones(1);
@@ -73,16 +69,13 @@ public class Mancala {
         } 
         else if(pitList.get(currentIndex).getStones()==1 && currentIndex > 6 && player1Turn == false) // Special Case: Marble lands in empty spot in player 2's side of board
         {
-                pitList.get(13).steal(pitList.get(indexOfOpposite)); //Steals stones from opposite pit into Mancala B
-                pitList.get(13).steal(pitList.get(currentIndex)); //Steals stones from ending put into Mancala B
+                pitList.get(13).steal(pitList.get(indexOfOpposite));
+                pitList.get(13).steal(pitList.get(currentIndex)); 
         } 
         else if(pitList.get(currentIndex).getStones()==1 && currentIndex < 6 && player1Turn == true) // Special Case: Marble lands in empty spot on player 1's side of board
         {
                 pitList.get(6).steal(pitList.get(indexOfOpposite));
                 pitList.get(6).steal(pitList.get(currentIndex));
-        }
-        else {
-            //player1Turn = !player1Turn; // Player ends their turn
         }
         
         notifyView();
@@ -104,7 +97,7 @@ public class Mancala {
         actionMade = false;
 
         int index;
-        /* Add function where you check each players side after every ENDTURN to see if the game ends. */
+        //Function to check special endgame occurrence if one player's side is all empty.
         int numberOfStonesPlayer1= 0;
         int numberOfStonesPlayer2 = 0;
         for (index = 0; index < 6; index++) {
@@ -116,18 +109,17 @@ public class Mancala {
         }
         if (numberOfStonesPlayer1 == 0) {
             for (index = 7; index < 13; index++) {
-                pitList.get(6).steal(pitList.get(index));
+                pitList.get(13).steal(pitList.get(index));
                 //endgame
             }
         }
         if (numberOfStonesPlayer2 == 0) {
             for (index = 0; index < 6; index++) {
-                pitList.get(13).steal(pitList.get(index));
+                pitList.get(6).steal(pitList.get(index));
                 //endgame
             }
         }
         notifyView();
-        //^^^Add in a gameEnd function if one of these two conditions are satisfied.
 
         if(player1Turn) {System.out.println("It is now player 1's turn.");} 
         else { System.out.println("It is now player 2's turn.");}
@@ -135,22 +127,24 @@ public class Mancala {
         return;
     }
 
+    /**
+     * Returns number of undos a player made during their turn.
+     * @return Number of undos made during a player's turn.
+     */
     public int getNumOfUndos() {
         return numberOfUndos;
     }
 
     /**
      * Undoes a player's turn back to the beginning of the turn. Can only be used three times.
-     * @return Whether or not a player's turn is able to be undone
+     * @return Whether or not a player's turn is able to be undone. If true, undone is complete.
      */
     public boolean undo() {
-    /*
-    Still need to add onto end turn function.
-    */
+
         if (!actionMade) { 
             return false; 
         }
-        if (numberOfUndos >= 3) { //Possibly add statement into view saying "Max # of undos reached"?
+        if (numberOfUndos >= 3) {
             System.out.println("Max number of undos taken.");
             return false;
         }
@@ -169,6 +163,7 @@ public class Mancala {
     public boolean getTurn() {
         return player1Turn;
     }
+
     /**
      * Used after the completion of a player's turn. Refreshes the undos.
      */
@@ -176,6 +171,7 @@ public class Mancala {
         numberOfUndos = 0;
         return;
     }
+
     /**
      * Returns the pitlist of the mancala board.
      * @return the current pitlist in the game.

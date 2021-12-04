@@ -1,7 +1,5 @@
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -161,11 +159,20 @@ public class MancalaBoard {
 
         updateStoneCount();
     }
+    
+    /**
+     * Method created to check who won.
+     */
+    private void onGameWin() {
+        JOptionPane.showMessageDialog(
+                    null, "Event successfully added", "Create Event", JOptionPane.INFORMATION_MESSAGE);
+    }
     /**
      * Obtains the stone count and updates the viewers.
      */
     private void updateStoneCount() {
         ArrayList<Pit> pitList = game.getPitList();
+        boolean playerHasWon = true;
         for (int i = 0; i < pitList.size(); i++) {
             int numStones = pitList.get(i).getStones();
             if (i == 6 || i == 13) {
@@ -179,12 +186,17 @@ public class MancalaBoard {
             else {
                 // pits a : i < 6
                 // pits b : i > 6
+                if (numStones > 0) playerHasWon = false;
                 if (i < 6) {
                     pitsA.getPitButton(i).setStoneCount(numStones);
                 } else {
                     pitsB.getPitButton(12 - i).setStoneCount(numStones);
                 }
             }
+        }
+        if (playerHasWon) {
+            String msg = String.format("Player %s wins!", (pitList.get(6).getStones() > pitList.get(13).getStones()) ? "A" : "B");
+            JOptionPane.showMessageDialog(null, msg, "Congratulations!", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }
