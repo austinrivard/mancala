@@ -114,6 +114,7 @@ public class MancalaBoard {
         boardLabel.add(endTurnButton, c);
         
         JFrame frame = new JFrame("Mancala");
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(boardLabel);
         frame.pack();
