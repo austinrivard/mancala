@@ -78,7 +78,7 @@ public class MancalaBoard {
         });
 //*/
         
-        JLabel boardLabel = new JLabel(style.boardIcon());
+        boardLabel = new JLabel(style.boardIcon());
         boardLabel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         // c.fill = GridBagConstraints.BOTH;
