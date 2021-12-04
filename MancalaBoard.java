@@ -73,10 +73,6 @@ public class MancalaBoard {
                     System.out.println("Pit has " + game.getPitList().get(pitIndex).getStones()+ " stones");
                     game.pickPit(pitIndex);
                     System.out.println("Pit now has " + game.getPitList().get(pitIndex).getStones()+ " stones");
-
-                    //test
-                    mancalaA.setStoneCount(pitIndex);
-                    boardLabel.repaint();
                 });
             }
         }
@@ -183,9 +179,7 @@ public class MancalaBoard {
                 // pits a : i < 6
                 // pits b : i > 6
                 if (i < 6) {
-                    // pitsA.setStoneCount(i, numStones);
                     pitsA.getPitButton(i).setStoneCount(numStones);
-                    // System.out.printf("set pits a index %d to %d\n", i, numStones);
                 } else {
                     pitsB.getPitButton(12 - i).setStoneCount(numStones);
                 }
