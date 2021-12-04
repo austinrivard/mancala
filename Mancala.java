@@ -85,9 +85,7 @@ public class Mancala {
         else {
             //player1Turn = !player1Turn; // Player ends their turn
         }
-        for (ChangeListener cl : listeners) {
-            cl.stateChanged(new ChangeEvent(this));
-        }
+        
         notifyView();
         actionMade = !actionMade;
         return true;
@@ -193,7 +191,7 @@ public class Mancala {
     }
     public void notifyView() {
         for (ChangeListener listener:listeners) {
-            listener.stateChanged(new ChangeEvent(this));;
+            listener.stateChanged(new ChangeEvent(this));
         }
     }
 }
