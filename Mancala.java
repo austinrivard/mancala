@@ -40,9 +40,13 @@ public class Mancala {
             System.out.println("Please choose a pit from your side.");
             return false;
         }
+        int moves = pitList.get(index).getStones();
+        if(moves == 0) {
+            System.out.println("Please choose a pit with stones in it.");
+            return false;
+        }
         if (actionMade) {return false;}
         if (index < 0 || index == 6 || index == 13) {return false;}
-        int moves = pitList.get(index).getStones();
         pitList.get(index).removeStones();
         int currentIndex = index;
     
@@ -58,7 +62,7 @@ public class Mancala {
             if (currentIndex > 13) {currentIndex = 0;}
         }
         int indexOfOpposite = 12 - currentIndex;
-        if(currentIndex == 13 || currentIndex == 6){} // Special Case: Marble Lands in Mancala
+        if(currentIndex == 13 || currentIndex == 6) {actionMade = !actionMade;} // Special Case: Marble Lands in Mancala
         else if(pitList.get(currentIndex).getStones()==0 && currentIndex > 6 && player1Turn == false) // Special Case: Marble lands in empty spot in player 2's side of board
         {
                 pitList.get(13).steal(pitList.get(indexOfOpposite));
@@ -76,7 +80,7 @@ public class Mancala {
             cl.stateChanged(new ChangeEvent(this));
         }
         notifyView();
-        actionMade = true;
+        actionMade = !actionMade;
         return true;
     }
     
@@ -84,13 +88,13 @@ public class Mancala {
      * A player ends their turn. Checks if all stones on a player's side is empty before either continuing or ending the game.
      */
     public void endTurn() {
+        System.out.println("Endturn button was pressed.");
         if (!actionMade) {return;}
         for (Pit p: pitList) {
             p.updateOldStones();
         }
         refreshUndo();
         player1Turn = !player1Turn;
-        System.out.println(player1Turn);
         actionMade = false;
 
         int index;
