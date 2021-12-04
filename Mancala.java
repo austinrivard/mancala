@@ -11,14 +11,14 @@ public class Mancala {
     private ArrayList<Pit> pitList;
 
     public Mancala(int numberOfStones) {
-        pitList = new ArrayList<Pit>(14);
-        for (Pit p: pitList) {
-            if (pitList.indexOf(p)== 6 || pitList.indexOf(p)== 13) {
-                p = new MancalaPit(0);
+        pitList = new ArrayList<Pit>();
+        for (int i=0; i<14;i++) {
+            pitList.add(new Pit(numberOfStones));
+            if (i== 6 || i== 13) {
+                pitList.add(new MancalaPit(0));
             }
-            else {p = new Pit(numberOfStones);}
-            
         }
+       
     }
     public boolean pickPit(int index) { //Need to add free turn functionality when landing in your own mancala.
         if (!actionMade) {return false;}
