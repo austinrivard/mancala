@@ -45,7 +45,7 @@ public class Mancala {
         for (int i = moves; i > 0; i--) {
             if (currentIndex == 6 && !player1Turn) {i++;}
             else if (currentIndex == 13 && player1Turn) {i++;}
-            else{pitList.get(currentIndex).addStones(1);}
+            else{pitList.get(currentIndex+1).addStones(1);}
             currentIndex++;
             if (currentIndex > 13) {currentIndex = 0;}
         }
@@ -74,7 +74,7 @@ public class Mancala {
      * A player ends their turn. Checks if all stones on a player's side is empty before either continuing or ending the game.
      */
     public void endTurn() {
-        if (!actionMade) {return;}
+        if (actionMade) {return;}
         for (Pit p: pitList) {
             p.updateOldStones();
         }
