@@ -38,7 +38,7 @@ public class Mancala {
      * @return Whether or not an action has been made.
      */
     public boolean pickPit(int index) { //Need to add free turn functionality when landing in your own mancala.
-        if (!actionMade) {return false;}
+        if (actionMade) {return false;}
         if (index < 0 || index == 6 || index == 13) {return false;}
         int moves = pitList.get(index).getStones();
         pitList.get(index).removeStones();
@@ -76,6 +76,7 @@ public class Mancala {
      * A player ends their turn. Checks if all stones on a player's side is empty before either continuing or ending the game.
      */
     public void endTurn() {
+        System.out.println("EndTurn button pressed.");
         if (!actionMade) {return;}
         for (Pit p: pitList) {
             p.updateOldStones();
@@ -102,6 +103,7 @@ public class Mancala {
      * @return Whether or not a player's turn is able to be undone
      */
     public void undo() {
+        System.out.println("Undo button was pressed.");
     /*
     Still need to add onto end turn function.
     */
