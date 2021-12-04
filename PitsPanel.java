@@ -9,11 +9,11 @@ import javax.swing.*;
 public class PitsPanel extends JPanel {
     private ArrayList<PitButton> pitsList;
 
-    public PitsPanel(Icon icon) {
+    public PitsPanel(Style style) {
         pitsList = new ArrayList<PitButton>();
         
         for (int i = 0; i < 6; i++) {
-            PitButton btn = new PitButton(icon);
+            PitButton btn = new PitButton(style.pitIcon());
             btn.setFocusPainted(false);
             btn.setContentAreaFilled(false);
             btn.setOpaque(false);

@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 /**
@@ -10,23 +11,26 @@ import javax.swing.*;
  */
 public class MancalaBoard {
     private Style style;
+    private JLabel boardLabel;
     private Mancala game;
     private MancalaPanel mancalaA, mancalaB;
     private PitsPanel pitsA, pitsB;
 
-    public MancalaBoard(Mancala g, Style s) {
-        this.game = g;
-        this.style = s;
-        mancalaA = new MancalaPanel(style.mancalaIcon());
-        mancalaB = new MancalaPanel(style.mancalaIcon());
-        pitsA = new PitsPanel(style.pitIcon());
-        pitsB = new PitsPanel(style.pitIcon());
+    public MancalaBoard(Mancala game, Style style) {
+        this.game = game;
+        this.style = style;
+        mancalaA = new MancalaPanel(style);
+        mancalaB = new MancalaPanel(style);
+        pitsA = new PitsPanel(style);
+        pitsB = new PitsPanel(style);
+
+        game.attachChangeListener(e -> updateStoneCount());
 
         for (int i = 0; i <= 13; i++) {
             if (i == 6 || i == 13) {
                 //mancala a || mancala b
                 
-            } 
+            }
             else {
                 // pits a : i < 6
                 // pits b : i > 6
@@ -35,7 +39,7 @@ public class MancalaBoard {
                     button = pitsA.getPitButton(i);
                     button.setText(String.format("%s%d", "A", i + 1));
                     button.setVerticalTextPosition(SwingConstants.BOTTOM);
-                } 
+                }
                 else {
                     button = pitsB.getPitButton(12 - i);
                     button.setText(String.format("%s%d", "B", i - 6));
@@ -47,9 +51,13 @@ public class MancalaBoard {
                 button.addActionListener(event -> {
                     PitButton btn = (PitButton) event.getSource();
                     int pitIndex = Integer.valueOf(btn.getActionCommand());
-                    System.out.println("pit " + pitIndex +" has " + game.getPitList().get(pitIndex).getStones()+ " stones");
-                    game.pickPit(pitIndex); // model updated
-                    // update view
+                    game.pickPit(pitIndex);
+                    System.out.printf("picked pit %d\n", pitIndex);
+                    System.out.println("pit has" + game.getPitList().get(pitIndex).getStones()+ "stones");
+
+                    //test
+                    mancalaA.setStoneCount(pitIndex);
+                    boardLabel.repaint();
                 });
             }
         }
@@ -70,7 +78,7 @@ public class MancalaBoard {
         });
 //*/
         
-        JLabel boardLabel = new JLabel(style.boardIcon());
+        boardLabel = new JLabel(style.boardIcon());
         boardLabel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         // c.fill = GridBagConstraints.BOTH;
@@ -106,9 +114,42 @@ public class MancalaBoard {
         boardLabel.add(endTurnButton, c);
         
         JFrame frame = new JFrame("Mancala");
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(boardLabel);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private void updateStoneCount() {
+        ArrayList<Pit> pitList = game.getPitList();
+        for (int i = 0; i < pitList.size(); i++) {
+            int numStones = pitList.get(i).getStones();
+            if (i == 6 || i == 13) {
+                //mancala a | mancala b
+                if (i == 6) {
+                    mancalaA.setStoneCount(numStones);
+                    mancalaA.repaint();
+                }
+                else mancalaB.setStoneCount(numStones);
+            }
+            else {
+                // pits a : i < 6
+                // pits b : i > 6
+                PitButton button;
+                if (i < 6) {
+                    button = pitsA.getPitButton(i);
+                } else {
+                    button = pitsB.getPitButton(12 - i);
+                }
+
+                for (int j = 0; j < numStones; j++) {
+                    button.add(new JLabel(style.stoneIcon()));
+                }
+            }
+        }
+        // boardLabel.revalidate();
+        
+        boardLabel.repaint();
     }
 }

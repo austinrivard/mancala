@@ -1,4 +1,6 @@
 import java.util.*;
+import javax.swing.event.*;
+
 /**
  * Mancala - a game in which two players move stones around the board
  * with the goal of getting the most number of stones in their mancala. (Model)
@@ -13,8 +15,10 @@ public class Mancala {
     private boolean actionMade = false;
     private int numberOfUndos = 0;
     private ArrayList<Pit> pitList;
+    private ArrayList<ChangeListener> listeners;
 
     public Mancala(int numberOfStones) {
+        listeners = new ArrayList<ChangeListener>();
         pitList = new ArrayList<Pit>();
         for (int i=0; i<14;i++) {
             
@@ -24,7 +28,6 @@ public class Mancala {
             else 
             pitList.add(new Pit(numberOfStones));
         }
-       
     }
     /**
      * Given a pit, takes the stones from that pit and places one stone each into further pits.
@@ -60,9 +63,13 @@ public class Mancala {
             player1Turn = !player1Turn; // Player ends their turn
         }
         
+        for (ChangeListener cl : listeners) {
+            cl.stateChanged(new ChangeEvent(this));
+        }
         actionMade = true;
         return true;
     }
+    
     /**
      * A player ends their turn. Checks if all stones on a player's side is empty before either continuing or ending the game.
      */
@@ -105,6 +112,7 @@ public class Mancala {
         numberOfUndos++;
         return true;
     }
+
     /**
      * Gets whether it is player 1's turn or player 2's turn
      * @return Whether it is Player 1's turn
@@ -127,5 +135,7 @@ public class Mancala {
         return pitList;
     }
 
-
+    public void attachChangeListener(ChangeListener cl) {
+        listeners.add(cl);
+    }
 }
