@@ -65,6 +65,9 @@ public class Mancala {
         }
         int indexOfOpposite = 12 - currentIndex;
         if(currentIndex == 13 || currentIndex == 6) { // Special Case: Marble Lands in Mancala
+            for (Pit p: pitList) {
+                p.updateOldStones();
+            }
             actionMade = !actionMade;
         } 
         else if(pitList.get(currentIndex).getStones()==1 && currentIndex > 6 && player1Turn == false) // Special Case: Marble lands in empty spot in player 2's side of board
@@ -80,6 +83,7 @@ public class Mancala {
         
         notifyView();
         actionMade = !actionMade;
+        
         return true;
     }
     
