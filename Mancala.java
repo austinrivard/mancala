@@ -109,13 +109,13 @@ public class Mancala {
         }
         if (numberOfStonesPlayer1 == 0) {
             for (index = 7; index < 13; index++) {
-                pitList.get(6).steal(pitList.get(index));
+                pitList.get(13).steal(pitList.get(index));
                 //endgame
             }
         }
         if (numberOfStonesPlayer2 == 0) {
             for (index = 0; index < 6; index++) {
-                pitList.get(13).steal(pitList.get(index));
+                pitList.get(6).steal(pitList.get(index));
                 //endgame
             }
         }
@@ -171,7 +171,7 @@ public class Mancala {
         numberOfUndos = 0;
         return;
     }
-    
+
     /**
      * Returns the pitlist of the mancala board.
      * @return the current pitlist in the game.
