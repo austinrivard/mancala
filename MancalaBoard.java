@@ -3,7 +3,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+/**
+ * Provides the layout of the mancala board.
+ * @author Austin Rivard
+ * @author Robert Yav
+ * @author Brendan Requierme
+ */
 public class MancalaBoard {
     private Style style;
     private JLabel boardLabel;
@@ -56,8 +61,24 @@ public class MancalaBoard {
                 });
             }
         }
+//**
+        JButton undoButton = new JButton("Undo");
+        undoButton.setVerticalTextPosition(SwingConstants.CENTER);
+        undoButton.setFont(undoButton.getFont().deriveFont(16f));
+        undoButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        undoButton.addActionListener(event -> {
+                game.undo();
+        });
 
-        boardLabel = new JLabel(style.boardIcon());
+        JButton endTurnButton = new JButton("End Turn");
+        undoButton.setVerticalTextPosition(SwingConstants.CENTER);
+        undoButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        endTurnButton.addActionListener(event -> { 
+            game.endTurn();
+        });
+//*/
+        
+        JLabel boardLabel = new JLabel(style.boardIcon());
         boardLabel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         // c.fill = GridBagConstraints.BOTH;
@@ -65,23 +86,32 @@ public class MancalaBoard {
 
         c.gridx = 0;
         c.gridy = 0;
-        c.gridheight = 4;
+        c.gridheight = 3; // 4 changed to 3
         c.gridwidth = 2;
         c.weighty = 1.0;
         boardLabel.add(mancalaB, c);
 
-        c.gridx = 9;
+        c.gridx = 9; 
         boardLabel.add(mancalaA, c);
 
         c.weighty = 0.0;
         c.gridx = 2;
-        c.gridy = 1;
+        c.gridy = 1; 
         c.gridheight = 1;
         c.gridwidth = 6;
         boardLabel.add(pitsB, c);
 
-        c.gridy = 3;
+        c.gridy = 5; // 3 changed to 5
         boardLabel.add(pitsA, c);
+
+        c.gridwidth = 7;
+        c.gridy = 2;
+        c.gridx = 1;
+        boardLabel.add(undoButton, c);
+
+        c.gridy = 2;
+        c.gridx = 6;
+        boardLabel.add(endTurnButton, c);
         
         JFrame frame = new JFrame("Mancala");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -4,7 +4,8 @@ import javax.swing.event.*;
 /**
  * Mancala - a game in which two players move stones around the board
  * with the goal of getting the most number of stones in their mancala. (Model)
- * 
+ * Contains 6 pits on the north and south sides of the board, and two "Mancala" 
+ * pits on the east and west sides of the board.
  * @author Austin Rivard
  * @author Robert Yav
  * @author Brendan Requierme
@@ -20,13 +21,22 @@ public class Mancala {
         listeners = new ArrayList<ChangeListener>();
         pitList = new ArrayList<Pit>();
         for (int i=0; i<14;i++) {
-            pitList.add(new Pit(numberOfStones));
+            
             if (i== 6 || i== 13) {
-                pitList.add(new MancalaPit(0));
+                pitList.add(new Pit(0));
             }
+            else 
+            pitList.add(new Pit(numberOfStones));
+
+            System.out.println("pit "+i+ " has "+ pitList.get(i).getStones()+" stones");
         }
     }
-
+    /**
+     * Given a pit, takes the stones from that pit and places one stone each into further pits.
+     * Special cases for when a player obtains an extra turn and when a player steals from the opposite adjacent side.
+     * @param index Pit that is being chosen.
+     * @return Whether or not an action has been made.
+     */
     public boolean pickPit(int index) { //Need to add free turn functionality when landing in your own mancala.
         if (!actionMade) {return false;}
         if (index < 0 || index == 6 || index == 13) {return false;}
@@ -61,8 +71,11 @@ public class Mancala {
         actionMade = true;
         return true;
     }
-
-    public void endTurn() { //When player hits endTurn button.
+    
+    /**
+     * A player ends their turn. Checks if all stones on a player's side is empty before either continuing or ending the game.
+     */
+    public void endTurn() {
         if (!actionMade) {return;}
         for (Pit p: pitList) {
             p.updateOldStones();
@@ -84,30 +97,42 @@ public class Mancala {
         //^^^Add in a gameEnd function if one of these two conditions are satisfied.
         return;
     }
-
-    public boolean undo() {
+    /**
+     * Undoes a player's turn back to the beginning of the turn. Can only be used three times.
+     * @return Whether or not a player's turn is able to be undone
+     */
+    public void undo() {
     /*
     Still need to add onto end turn function.
     */
         if (numberOfUndos==3) { //Possibly add statement into view saying "Max # of undos reached"?
-            return false;
+            return;
         }
         for (Pit p: pitList) {
             p.revertStones();
         }
         numberOfUndos++;
-        return true;
-    }
-
-    public boolean getTurn() {
-        return player1Turn;
-    }
-
-    public void refreshUndo() { //Used after the completion of a player's turn
-        numberOfUndos = 0;
         return;
     }
 
+    /**
+     * Gets whether it is player 1's turn or player 2's turn
+     * @return Whether it is Player 1's turn
+     */
+    public boolean getTurn() {
+        return player1Turn;
+    }
+    /**
+     * Used after the completion of a player's turn. Refreshes the undos.
+     */
+    public void refreshUndo() {
+        numberOfUndos = 0;
+        return;
+    }
+    /**
+     * Returns the pitlist of the mancala board.
+     * @return the current pitlist in the game.
+     */
     public ArrayList<Pit> getPitList() {
         return pitList;
     }

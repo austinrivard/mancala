@@ -1,5 +1,7 @@
 import javax.swing.Icon;
-
+/**
+ * Style of the board, which is created through the GUI.
+ */
 public interface Style {
     public int numStones();
     public Icon boardIcon();

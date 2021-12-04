@@ -1,7 +1,12 @@
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
-
+/**
+ * Panel that represents a mancala board.
+ * @author Austin Rivard
+ * @author Robert Yav
+ * @author Brendan Requierme
+ */
 public class MancalaPanel extends JPanel {
     private int numStones;
     private Style style;
