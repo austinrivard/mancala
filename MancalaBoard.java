@@ -161,7 +161,9 @@ public class MancalaBoard {
 
         updateStoneCount();
     }
-
+    /**
+     * Obtains the stone count and updates the viewers.
+     */
     private void updateStoneCount() {
         ArrayList<Pit> pitList = game.getPitList();
         for (int i = 0; i < pitList.size(); i++) {

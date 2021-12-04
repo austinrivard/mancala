@@ -183,10 +183,16 @@ public class Mancala {
     public ArrayList<Pit> getPitList() {
         return pitList;
     }
-
+    /**
+     * Attaches a ChangeListener to Mancala.
+     * @param cl ChangeListner to be added.
+     */
     public void attachChangeListener(ChangeListener cl) {
         listeners.add(cl);
     }
+    /**
+     * Notifies change listeners of changes within mancala.
+     */
     public void notifyView() {
         for (ChangeListener listener:listeners) {
             listener.stateChanged(new ChangeEvent(this));
