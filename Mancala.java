@@ -65,15 +65,8 @@ public class Mancala {
         actionMade = true;
         return true;
     }
-<<<<<<< HEAD
     public void endTurn() { //When player hits endTurn button.
         System.out.println("EndTurn button was pressed.");
-=======
-    /**
-     * A player ends their turn. Checks if all stones on a player's side is empty before either continuing or ending the game.
-     */
-    public void endTurn() {
->>>>>>> d3d858e5dbb44f3042cc969f28d9e548874063c8
         if (!actionMade) {return;}
         for (Pit p: pitList) {
             p.updateOldStones();
@@ -95,16 +88,8 @@ public class Mancala {
         //^^^Add in a gameEnd function if one of these two conditions are satisfied.
         return;
     }
-<<<<<<< HEAD
     public void undo() {
         System.out.println("Undo button was pressed.");
-=======
-    /**
-     * Undoes a player's turn back to the beginning of the turn. Can only be used three times.
-     * @return Whether or not a player's turn is able to be undone
-     */
-    public boolean undo() {
->>>>>>> d3d858e5dbb44f3042cc969f28d9e548874063c8
     /*
     Still need to add onto end turn function.
     */
