@@ -82,7 +82,7 @@ public class MancalaBoard {
         undoButton.addActionListener(event -> {
             if (game.undo()){
                 System.out.println("Undo Successful, number of undos left: " + (3 - game.getNumOfUndos()));
-                boardLabel.repaint();
+                updateStoneCount();
             } else {
                 System.out.println("Please take an action.");
             }
