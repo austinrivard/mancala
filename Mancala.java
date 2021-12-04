@@ -1,16 +1,23 @@
 import java.util.*;
+import javax.swing.event.*;
+
 /**
  * Mancala - a game in which two players move stones around the board
  * with the goal of getting the most number of stones in their mancala. (Model)
+ * 
+ * @author Austin Rivard
+ * @author Robert Yav
+ * @author Brendan Requierme
  */
-
 public class Mancala {
     private boolean player1Turn = true;
     private boolean actionMade = false;
     private int numberOfUndos = 0;
     private ArrayList<Pit> pitList;
+    private ArrayList<ChangeListener> listeners;
 
     public Mancala(int numberOfStones) {
+        listeners = new ArrayList<ChangeListener>();
         pitList = new ArrayList<Pit>();
         for (int i=0; i<14;i++) {
             pitList.add(new Pit(numberOfStones));
@@ -18,8 +25,8 @@ public class Mancala {
                 pitList.add(new MancalaPit(0));
             }
         }
-       
     }
+
     public boolean pickPit(int index) { //Need to add free turn functionality when landing in your own mancala.
         if (!actionMade) {return false;}
         if (index < 0 || index == 6 || index == 13) {return false;}
@@ -48,9 +55,13 @@ public class Mancala {
             player1Turn = !player1Turn; // Player ends their turn
         }
         
+        for (ChangeListener cl : listeners) {
+            cl.stateChanged(new ChangeEvent(this));
+        }
         actionMade = true;
         return true;
     }
+
     public void endTurn() { //When player hits endTurn button.
         if (!actionMade) {return;}
         for (Pit p: pitList) {
@@ -73,6 +84,7 @@ public class Mancala {
         //^^^Add in a gameEnd function if one of these two conditions are satisfied.
         return;
     }
+
     public boolean undo() {
     /*
     Still need to add onto end turn function.
@@ -86,16 +98,21 @@ public class Mancala {
         numberOfUndos++;
         return true;
     }
+
     public boolean getTurn() {
         return player1Turn;
     }
+
     public void refreshUndo() { //Used after the completion of a player's turn
         numberOfUndos = 0;
         return;
     }
+
     public ArrayList<Pit> getPitList() {
         return pitList;
     }
 
-
+    public void attachChangeListener(ChangeListener cl) {
+        listeners.add(cl);
+    }
 }
