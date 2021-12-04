@@ -1,6 +1,5 @@
 import java.util.*;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 /**
  * Panel that contains all of the pits in the view of Mancala.
@@ -41,7 +40,11 @@ public class PitsPanel extends JPanel {
         }
         setOpaque(false);
     }
-
+    /**
+     * Returns a pit given a pit button.
+     * @param index of the pit
+     * @return a Pit within pit button.
+     */
     public PitButton getPitButton(int index) {
         return pitsList.get(index);
     }

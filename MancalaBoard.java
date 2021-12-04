@@ -78,6 +78,9 @@ public class MancalaBoard {
         undoButton.setFont(undoButton.getFont().deriveFont(16f));
         undoButton.setHorizontalTextPosition(SwingConstants.CENTER);
         undoButton.addActionListener(event -> {
+            if (game.getNumOfUndos() == 3) {
+                JOptionPane.showMessageDialog(null, "Maximum number of undos exceeded!", "Exceeded maximum number of undos", JOptionPane.INFORMATION_MESSAGE);
+            }
             if (game.undo()){
                 System.out.println("Undo Successful, number of undos left: " + (3 - game.getNumOfUndos()));
                 updateStoneCount();
@@ -159,14 +162,7 @@ public class MancalaBoard {
 
         updateStoneCount();
     }
-    
-    /**
-     * Method created to check who won.
-     */
-    private void onGameWin() {
-        JOptionPane.showMessageDialog(
-                    null, "Event successfully added", "Create Event", JOptionPane.INFORMATION_MESSAGE);
-    }
+
     /**
      * Obtains the stone count and updates the viewers.
      */
