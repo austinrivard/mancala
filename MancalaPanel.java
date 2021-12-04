@@ -13,7 +13,6 @@ public class MancalaPanel extends JPanel {
     private Style style;
     private JLabel mancalaLabel;
     private ArrayList<JLabel> stones;
-
     public MancalaPanel(Style style) {
         this.style = style;
         stones = new ArrayList<JLabel>();
@@ -32,7 +31,7 @@ public class MancalaPanel extends JPanel {
         // super.paintComponent(g);
         Random r = new Random();
         for (int i = 0; i < numStones; i++) {
-            style.stoneIcon().paintIcon(mancalaLabel, g, r.nextInt(50, 80), r.nextInt(100, 300));
+            style.stoneIcon().paintIcon(mancalaLabel, g, 50 + r.nextInt(30), 100 + r.nextInt(200));
         }
     }
 

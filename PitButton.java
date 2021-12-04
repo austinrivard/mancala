@@ -18,7 +18,7 @@ public class PitButton extends JButton {
         super.paintComponent(g);
         Random r = new Random();
         for (int i = 0; i < numStones; i++) {
-            style.stoneIcon().paintIcon(this, g, r.nextInt(25, 50), r.nextInt(30, 55));
+            style.stoneIcon().paintIcon(this, g, 25 + r.nextInt(25), 30 + r.nextInt(25));
         }
     }
 
