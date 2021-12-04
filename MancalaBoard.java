@@ -2,16 +2,21 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
+/**
+ * Provides the layout of the mancala board.
+ * @author Austin Rivard
+ * @author Robert Yav
+ * @author Brendan Requierme
+ */
 public class MancalaBoard {
     private Style style;
     private Mancala game;
     private MancalaPanel mancalaA, mancalaB;
     private PitsPanel pitsA, pitsB;
 
-    public MancalaBoard(Mancala game, Style style) {
-        this.game = game;
-        this.style = style;
+    public MancalaBoard(Mancala g, Style s) {
+        this.game = g;
+        this.style = s;
         mancalaA = new MancalaPanel(style.mancalaIcon());
         mancalaB = new MancalaPanel(style.mancalaIcon());
         pitsA = new PitsPanel(style.pitIcon());

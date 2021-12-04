@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import javax.swing.*;
-
+/**
+ * Panel that contains all of the pits in the view of Mancala.
+ * @author Austin Rivard
+ * @author Robert Yav
+ * @author Brendan Requierme
+ */
 public class PitsPanel extends JPanel {
     private ArrayList<PitButton> pitsList;
 
