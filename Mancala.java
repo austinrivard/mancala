@@ -45,6 +45,10 @@ public class Mancala {
         for (int i = moves; i > 0; i--) {
             if (currentIndex == 6 && !player1Turn) {i++;}
             else if (currentIndex == 13 && player1Turn) {i++;}
+            else if (currentIndex == 12) {
+                pitList.get(currentIndex+1).addStones(1);
+                currentIndex = 0;
+            }
             else{pitList.get(currentIndex+1).addStones(1);}
             currentIndex++;
             if (currentIndex > 13) {currentIndex = 0;}
