@@ -48,22 +48,22 @@ public class MancalaBoard {
                 });
             }
         }
-/**
-        JButton undoButton = new JButton("Undo"); //undo button undos last move made if there was one
-        undoButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        undoButton.setHorizontalTextPosition(SwingConstants.CENTER - 200);
-        //undoButton.setActionCommand(game.undo());
+//**
+        JButton undoButton = new JButton("Undo");
+        undoButton.setVerticalTextPosition(SwingConstants.CENTER);
+        undoButton.setFont(undoButton.getFont().deriveFont(16f));
+        undoButton.setHorizontalTextPosition(SwingConstants.CENTER);
         undoButton.addActionListener(event -> {
-            game.undo();
+                game.undo();
         });
 
-        JButton endTurnButton = new JButton("End Turn"); //end turn button once player makes a move
-        undoButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        undoButton.setHorizontalTextPosition(SwingConstants.CENTER + 200);
+        JButton endTurnButton = new JButton("End Turn");
+        undoButton.setVerticalTextPosition(SwingConstants.CENTER);
+        undoButton.setHorizontalTextPosition(SwingConstants.CENTER);
         endTurnButton.addActionListener(event -> { 
             game.endTurn();
         });
-*/
+//*/
         
         JLabel boardLabel = new JLabel(style.boardIcon());
         boardLabel.setLayout(new GridBagLayout());
@@ -90,6 +90,15 @@ public class MancalaBoard {
 
         c.gridy = 5; // 3 changed to 5
         boardLabel.add(pitsA, c);
+
+        c.gridwidth = 7;
+        c.gridy = 2;
+        c.gridx = 1;
+        boardLabel.add(undoButton, c);
+
+        c.gridy = 2;
+        c.gridx = 6;
+        boardLabel.add(endTurnButton, c);
         
         JFrame frame = new JFrame("Mancala");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

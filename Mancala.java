@@ -56,6 +56,7 @@ public class Mancala {
         return true;
     }
     public void endTurn() { //When player hits endTurn button.
+        System.out.println("EndTurn button was pressed.");
         if (!actionMade) {return;}
         for (Pit p: pitList) {
             p.updateOldStones();
@@ -77,18 +78,19 @@ public class Mancala {
         //^^^Add in a gameEnd function if one of these two conditions are satisfied.
         return;
     }
-    public boolean undo() {
+    public void undo() {
+        System.out.println("Undo button was pressed.");
     /*
     Still need to add onto end turn function.
     */
         if (numberOfUndos==3) { //Possibly add statement into view saying "Max # of undos reached"?
-            return false;
+            return;
         }
         for (Pit p: pitList) {
             p.revertStones();
         }
         numberOfUndos++;
-        return true;
+        return;
     }
     public boolean getTurn() {
         return player1Turn;
