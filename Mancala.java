@@ -95,12 +95,27 @@ public class Mancala {
 
         int index;
         /* Add function where you check each players side after every ENDTURN to see if the game ends. */
+        int numberOfStonesPlayer1= 0;
+        int numberOfStonesPlayer2 = 0;
         for (index = 0; index < 6; index++) {
-            if (pitList.get(index).getStones() != 0) {break;}
+            
+            numberOfStonesPlayer1 = numberOfStonesPlayer1 + pitList.get(index).getStones();
         }
-
+        
         for (index = 7; index < 13; index++) {
-            if (pitList.get(index).getStones() != 0) {break;}
+            numberOfStonesPlayer2 = numberOfStonesPlayer2 + pitList.get(index).getStones();
+        }
+        if (numberOfStonesPlayer1 == 0) {
+            for (index = 7; index < 13; index++) {
+                pitList.get(6).steal(pitList.get(index));
+                //endgame
+            }
+        }
+        if (numberOfStonesPlayer2 == 0) {
+            for (index = 7; index < 13; index++) {
+                pitList.get(13).steal(pitList.get(index));
+                //endgame
+            }
         }
         notifyView();
         //^^^Add in a gameEnd function if one of these two conditions are satisfied.
