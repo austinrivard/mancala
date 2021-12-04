@@ -27,8 +27,6 @@ public class Mancala {
             }
             else 
             pitList.add(new Pit(numberOfStones));
-
-            System.out.println("pit "+i+ " has "+ pitList.get(i).getStones()+" stones");
         }
     }
     /**
@@ -38,7 +36,7 @@ public class Mancala {
      * @return Whether or not an action has been made.
      */
     public boolean pickPit(int index) { //Need to add free turn functionality when landing in your own mancala.
-        if (!actionMade) {return false;}
+        if (actionMade) {return false;}
         if (index < 0 || index == 6 || index == 13) {return false;}
         int moves = pitList.get(index).getStones();
         pitList.get(index).removeStones();
@@ -47,7 +45,11 @@ public class Mancala {
         for (int i = moves; i > 0; i--) {
             if (currentIndex == 6 && !player1Turn) {i++;}
             else if (currentIndex == 13 && player1Turn) {i++;}
-            else{pitList.get(currentIndex).addStones(1);}
+            else if (currentIndex == 12) {
+                pitList.get(currentIndex+1).addStones(1);
+                currentIndex = 0;
+            }
+            else{pitList.get(currentIndex+1).addStones(1);}
             currentIndex++;
             if (currentIndex > 13) {currentIndex = 0;}
         }
@@ -62,12 +64,12 @@ public class Mancala {
             pitList.get(currentIndex).steal(pitList.get(indexOfOpposite));
         }
         else {
-            player1Turn = !player1Turn; // Player ends their turn
+            //player1Turn = !player1Turn; // Player ends their turn
         }
-        
         for (ChangeListener cl : listeners) {
             cl.stateChanged(new ChangeEvent(this));
         }
+        notifyView();
         actionMade = true;
         return true;
     }
@@ -76,12 +78,13 @@ public class Mancala {
      * A player ends their turn. Checks if all stones on a player's side is empty before either continuing or ending the game.
      */
     public void endTurn() {
-        if (!actionMade) {return;}
+        if (actionMade) {return;}
         for (Pit p: pitList) {
             p.updateOldStones();
         }
         refreshUndo();
         player1Turn = !player1Turn;
+        System.out.println(player1Turn);
         actionMade = false;
 
         int index;
@@ -93,7 +96,7 @@ public class Mancala {
         for (index = 7; index < 13; index++) {
             if (pitList.get(index).getStones() != 0) {break;}
         }
-
+        notifyView();
         //^^^Add in a gameEnd function if one of these two conditions are satisfied.
         return;
     }
@@ -101,18 +104,18 @@ public class Mancala {
      * Undoes a player's turn back to the beginning of the turn. Can only be used three times.
      * @return Whether or not a player's turn is able to be undone
      */
-    public void undo() {
+    public boolean undo() {
     /*
     Still need to add onto end turn function.
     */
         if (numberOfUndos==3) { //Possibly add statement into view saying "Max # of undos reached"?
-            return;
+            return false;
         }
         for (Pit p: pitList) {
             p.revertStones();
         }
         numberOfUndos++;
-        return;
+        return true;
     }
 
     /**
@@ -139,5 +142,10 @@ public class Mancala {
 
     public void attachChangeListener(ChangeListener cl) {
         listeners.add(cl);
+    }
+    public void notifyView() {
+        for (ChangeListener listener:listeners) {
+            listener.stateChanged(new ChangeEvent(this));;
+        }
     }
 }
