@@ -66,10 +66,10 @@ public class Mancala {
         else {
             //player1Turn = !player1Turn; // Player ends their turn
         }
-        
         for (ChangeListener cl : listeners) {
             cl.stateChanged(new ChangeEvent(this));
         }
+        notifyView();
         actionMade = true;
         return true;
     }
@@ -78,13 +78,13 @@ public class Mancala {
      * A player ends their turn. Checks if all stones on a player's side is empty before either continuing or ending the game.
      */
     public void endTurn() {
-        System.out.println("EndTurn button pressed.");
-        if (!actionMade) {return;}
+        if (actionMade) {return;}
         for (Pit p: pitList) {
             p.updateOldStones();
         }
         refreshUndo();
         player1Turn = !player1Turn;
+        System.out.println(player1Turn);
         actionMade = false;
 
         int index;
@@ -96,7 +96,7 @@ public class Mancala {
         for (index = 7; index < 13; index++) {
             if (pitList.get(index).getStones() != 0) {break;}
         }
-
+        notifyView();
         //^^^Add in a gameEnd function if one of these two conditions are satisfied.
 
         if(player1Turn) {System.out.println("It is now player 1's turn.");} 
@@ -156,5 +156,10 @@ public class Mancala {
 
     public void attachChangeListener(ChangeListener cl) {
         listeners.add(cl);
+    }
+    public void notifyView() {
+        for (ChangeListener listener:listeners) {
+            listener.stateChanged(new ChangeEvent(this));;
+        }
     }
 }

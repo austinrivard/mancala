@@ -3,6 +3,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 /**
  * Provides the layout of the mancala board.
  * @author Austin Rivard
@@ -82,6 +84,19 @@ public class MancalaBoard {
         endTurnButton.addActionListener(event -> { 
             game.endTurn();
         });
+        JTextArea playerTurn = new JTextArea();
+        playerTurn.setText("Player 1's Turn");
+        ChangeListener listener = new ChangeListener() {
+                        public void stateChanged(ChangeEvent event) {
+                            boolean player1Turn = game.getTurn();
+                            if (player1Turn) {
+                                playerTurn.setText("Player 1's Turn");
+                            }
+                            else if (!player1Turn)
+                                playerTurn.setText("Player 2's Turn");
+                        }
+                    };
+                    game.attachChangeListener(listener);
 //*/
         
         boardLabel = new JLabel(style.boardIcon());
@@ -118,6 +133,10 @@ public class MancalaBoard {
         c.gridy = 2;
         c.gridx = 6;
         boardLabel.add(endTurnButton, c);
+
+        c.gridy = 2;
+        c.gridx = 2;
+        boardLabel.add(playerTurn);
         
         JFrame frame = new JFrame("Mancala");
         frame.setResizable(false);

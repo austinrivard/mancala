@@ -197,6 +197,6 @@ public class MancalaTest {
             public Icon stoneIcon() { return stoneIcon; }
         };
         Mancala game = new Mancala(numStones);
-        MancalaBoard board = new MancalaBoard(game, style);
+        MancalaBoard board = new MancalaBoard(game, style); 
     }
 }
