@@ -69,9 +69,14 @@ public class MancalaBoard {
                 button.addActionListener(event -> {
                     PitButton btn = (PitButton) event.getSource();
                     int pitIndex = Integer.valueOf(btn.getActionCommand());
+                    System.out.printf("Picked pit %d\n", pitIndex);
+                    System.out.println("Pit has " + game.getPitList().get(pitIndex).getStones()+ " stones");
                     game.pickPit(pitIndex);
-                    System.out.printf("picked pit %d\n", pitIndex);
-                    System.out.println("pit has" + game.getPitList().get(pitIndex).getStones()+ "stones");
+                    System.out.println("Pit now has " + game.getPitList().get(pitIndex).getStones()+ " stones");
+
+                    //test
+                    mancalaA.setStoneCount(pitIndex);
+                    boardLabel.repaint();
                 });
             }
         }
@@ -81,7 +86,12 @@ public class MancalaBoard {
         undoButton.setFont(undoButton.getFont().deriveFont(16f));
         undoButton.setHorizontalTextPosition(SwingConstants.CENTER);
         undoButton.addActionListener(event -> {
-                game.undo();
+                if (game.undo()){
+                    System.out.println("Undo Successful, number of undos left: " + (3 - game.getNumOfUndos()));
+                    boardLabel.repaint();
+                } else {
+                    System.out.println("Please take an action.");
+                }
         });
 
         JButton endTurnButton = new JButton("End Turn");
@@ -90,6 +100,7 @@ public class MancalaBoard {
         endTurnButton.addActionListener(event -> { 
             game.endTurn();
         });
+        
         JTextArea playerTurn = new JTextArea();
         playerTurn.setText("Player 1's Turn");
         ChangeListener listener = new ChangeListener() {

@@ -6,6 +6,7 @@ public class Pit {
     private int oldStones;
     public Pit(int numberOfStones) {
         this.stones = numberOfStones;
+        this.oldStones = numberOfStones; 
     }
     public int getStones() {return stones;}
     public void addStones(int numberOfStones) {
