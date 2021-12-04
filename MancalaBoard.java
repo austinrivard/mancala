@@ -17,27 +17,36 @@ public class MancalaBoard {
         pitsA = new PitsPanel(style.pitIcon());
         pitsB = new PitsPanel(style.pitIcon());
 
-        for (int i = 0; i < 13; i++) {
-            if (i == 6) continue;
-            
-            PitButton button;
-            if (i < 6) button = pitsA.getPitButton(i);
-            else button = pitsB.getPitButton(12 - i);
-
-            button.setText(String.format("%s%d", i < 6 ? "A" : "B", i));
-            button.setFont(button.getFont().deriveFont(16f));
-            button.setVerticalTextPosition(i < 6 ? SwingConstants.BOTTOM : SwingConstants.TOP);
-            button.setHorizontalTextPosition(SwingConstants.CENTER);
-
-            button.setActionCommand(String.valueOf(i));
-            button.addActionListener(event -> {
-                PitButton btn = (PitButton) event.getSource();
-                game.pickPit(Integer.valueOf(btn.getActionCommand()));
-                int pitIndex = Integer.valueOf(btn.getActionCommand());
-                System.out.printf("picked pit %d\n",pitIndex );
-                System.out.println("pit has" + game.getPitList().get(pitIndex).getStones()+ "stones");
-                //
-            });
+        for (int i = 0; i <= 13; i++) {
+            if (i == 6 || i == 13) {
+                //mancala a || mancala b
+                
+            } 
+            else {
+                // pits a : i < 6
+                // pits b : i > 6
+                PitButton button;
+                if (i < 6) {
+                    button = pitsA.getPitButton(i);
+                    button.setText(String.format("%s%d", "A", i + 1));
+                    button.setVerticalTextPosition(SwingConstants.BOTTOM);
+                } 
+                else {
+                    button = pitsB.getPitButton(12 - i);
+                    button.setText(String.format("%s%d", "B", i - 6));
+                    button.setVerticalTextPosition(SwingConstants.TOP);
+                } 
+                button.setFont(button.getFont().deriveFont(16f));
+                button.setHorizontalTextPosition(SwingConstants.CENTER);
+                button.setActionCommand(String.valueOf(i));
+                button.addActionListener(event -> {
+                    PitButton btn = (PitButton) event.getSource();
+                    int pitIndex = Integer.valueOf(btn.getActionCommand());
+                    System.out.println("pit " + pitIndex +" has " + game.getPitList().get(pitIndex).getStones()+ " stones");
+                    game.pickPit(pitIndex); // model updated
+                    // update view
+                });
+            }
         }
 /**
         JButton undoButton = new JButton("Undo"); //undo button undos last move made if there was one
@@ -60,22 +69,26 @@ public class MancalaBoard {
         boardLabel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         // c.fill = GridBagConstraints.BOTH;
+        c.anchor = GridBagConstraints.CENTER;
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 0;
-        c.gridheight = 4;
+        c.gridheight = 3; // 4 changed to 3
+        c.gridwidth = 2;
+        c.weighty = 1.0;
         boardLabel.add(mancalaB, c);
 
-        c.gridx = 9;
+        c.gridx = 9; 
         boardLabel.add(mancalaA, c);
 
+        c.weighty = 0.0;
         c.gridx = 2;
-        c.gridy = 0;
+        c.gridy = 1; 
         c.gridheight = 1;
         c.gridwidth = 6;
         boardLabel.add(pitsB, c);
 
-        c.gridy = 3;
+        c.gridy = 5; // 3 changed to 5
         boardLabel.add(pitsA, c);
         
         JFrame frame = new JFrame("Mancala");

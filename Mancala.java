@@ -13,10 +13,14 @@ public class Mancala {
     public Mancala(int numberOfStones) {
         pitList = new ArrayList<Pit>();
         for (int i=0; i<14;i++) {
-            pitList.add(new Pit(numberOfStones));
+            
             if (i== 6 || i== 13) {
-                pitList.add(new MancalaPit(0));
+                pitList.add(new Pit(0));
             }
+            else 
+            pitList.add(new Pit(numberOfStones));
+
+            System.out.println("pit "+i+ " has "+ pitList.get(i).getStones()+" stones");
         }
        
     }
