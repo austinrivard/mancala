@@ -72,16 +72,11 @@ public class MancalaBoard {
                     System.out.printf("Picked pit %d\n", pitIndex);
                     System.out.println("Pit has " + game.getPitList().get(pitIndex).getStones()+ " stones");
                     game.pickPit(pitIndex);
-<<<<<<< HEAD
                     System.out.println("Pit now has " + game.getPitList().get(pitIndex).getStones()+ " stones");
 
                     //test
                     mancalaA.setStoneCount(pitIndex);
                     boardLabel.repaint();
-=======
-                    System.out.printf("picked pit %d\n", pitIndex);
-                    System.out.println("pit has" + game.getPitList().get(pitIndex).getStones()+ "stones");
->>>>>>> e4d04611d63c90819b192f23ac010c7cb6be4ce3
                 });
             }
         }
