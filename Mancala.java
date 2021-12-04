@@ -23,8 +23,6 @@ public class Mancala {
             }
             else 
             pitList.add(new Pit(numberOfStones));
-
-            System.out.println("pit "+i+ " has "+ pitList.get(i).getStones()+" stones");
         }
        
     }
@@ -65,8 +63,10 @@ public class Mancala {
         actionMade = true;
         return true;
     }
-    public void endTurn() { //When player hits endTurn button.
-        System.out.println("EndTurn button was pressed.");
+    /**
+     * A player ends their turn. Checks if all stones on a player's side is empty before either continuing or ending the game.
+     */
+    public void endTurn() {
         if (!actionMade) {return;}
         for (Pit p: pitList) {
             p.updateOldStones();
@@ -88,19 +88,22 @@ public class Mancala {
         //^^^Add in a gameEnd function if one of these two conditions are satisfied.
         return;
     }
-    public void undo() {
-        System.out.println("Undo button was pressed.");
+    /**
+     * Undoes a player's turn back to the beginning of the turn. Can only be used three times.
+     * @return Whether or not a player's turn is able to be undone
+     */
+    public boolean undo() {
     /*
     Still need to add onto end turn function.
     */
         if (numberOfUndos==3) { //Possibly add statement into view saying "Max # of undos reached"?
-            return;
+            return false;
         }
         for (Pit p: pitList) {
             p.revertStones();
         }
         numberOfUndos++;
-        return;
+        return true;
     }
     /**
      * Gets whether it is player 1's turn or player 2's turn
