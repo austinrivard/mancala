@@ -15,7 +15,7 @@ public class Mancala {
         for (int i=0; i<14;i++) {
             pitList.add(new Pit(numberOfStones));
             if (i== 6 || i== 13) {
-                pitList.add(new MancalaPit(0));
+                pitList.add(new Pit(0));
             }
         }
        

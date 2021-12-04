@@ -42,9 +42,9 @@ public class MancalaBoard {
                 button.addActionListener(event -> {
                     PitButton btn = (PitButton) event.getSource();
                     int pitIndex = Integer.valueOf(btn.getActionCommand());
-                    game.pickPit(pitIndex);
-                    System.out.printf("picked pit %d\n", pitIndex);
-                    System.out.println("pit has" + game.getPitList().get(pitIndex).getStones()+ "stones");
+                    System.out.println("pit " + pitIndex +" has " + game.getPitList().get(pitIndex).getStones()+ " stones");
+                    game.pickPit(pitIndex); // model updated
+                    // update view
                 });
             }
         }
@@ -57,22 +57,22 @@ public class MancalaBoard {
 
         c.gridx = 0;
         c.gridy = 0;
-        c.gridheight = 4;
+        c.gridheight = 3; // 4 changed to 3
         c.gridwidth = 2;
         c.weighty = 1.0;
         boardLabel.add(mancalaB, c);
 
-        c.gridx = 9;
+        c.gridx = 9; 
         boardLabel.add(mancalaA, c);
 
         c.weighty = 0.0;
         c.gridx = 2;
-        c.gridy = 1;
+        c.gridy = 1; 
         c.gridheight = 1;
         c.gridwidth = 6;
         boardLabel.add(pitsB, c);
 
-        c.gridy = 3;
+        c.gridy = 5; // 3 changed to 5
         boardLabel.add(pitsA, c);
         
         JFrame frame = new JFrame("Mancala");
